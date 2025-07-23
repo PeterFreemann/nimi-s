@@ -18,15 +18,18 @@ export default function ProductCarousel({
   onProductClick, 
   onCategoryClick,
   onViewClick,
-  autoScrollInterval = 800 // Changed from 1500ms to 800ms for faster scrolling
+  autoScrollInterval = 800
 }: ProductCarouselProps): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [isTouching, setIsTouching] = useState(false);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const userScrollTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // Auto scroll effect
+  // Auto scroll effect - now considers touch and user scrolling
   useEffect(() => {
     const scrollProducts = () => {
-      if (!scrollRef.current || isHovering) return;
+      if (!scrollRef.current || isHovering || isTouching || isUserScrolling) return;
       
       const container = scrollRef.current;
       const scrollWidth = container.scrollWidth;
@@ -34,13 +37,11 @@ export default function ProductCarousel({
       
       if (scrollWidth > clientWidth) {
         const currentScroll = container.scrollLeft;
-        const cardWidth = 320; // Approximate width of a product card including margin
+        const cardWidth = 320;
         
         if (currentScroll >= scrollWidth - clientWidth - 10) {
-          // Reset to beginning
           container.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
-          // Scroll to next card
           container.scrollBy({ left: cardWidth, behavior: 'smooth' });
         }
       }
@@ -48,7 +49,43 @@ export default function ProductCarousel({
 
     const timer = setInterval(scrollProducts, autoScrollInterval);
     return () => clearInterval(timer);
-  }, [isHovering, autoScrollInterval]);
+  }, [isHovering, isTouching, isUserScrolling, autoScrollInterval]);
+
+  // Handle user scroll detection
+  const handleScroll = () => {
+    setIsUserScrolling(true);
+    
+    // Clear existing timeout
+    if (userScrollTimeoutRef.current) {
+      clearTimeout(userScrollTimeoutRef.current);
+    }
+    
+    // Set timeout to resume auto-scroll after user stops scrolling
+    userScrollTimeoutRef.current = setTimeout(() => {
+      setIsUserScrolling(false);
+    }, 2000); // Resume auto-scroll 2 seconds after user stops scrolling
+  };
+
+  // Touch event handlers for mobile
+  const handleTouchStart = () => {
+    setIsTouching(true);
+  };
+
+  const handleTouchEnd = () => {
+    // Delay setting isTouching to false to prevent immediate auto-scroll
+    setTimeout(() => {
+      setIsTouching(false);
+    }, 100);
+  };
+
+  // Mouse event handlers for desktop
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+  };
 
   const scrollLeft = () => {
     if (scrollRef.current) {
@@ -61,6 +98,15 @@ export default function ProductCarousel({
       scrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
     }
   };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (userScrollTimeoutRef.current) {
+        clearTimeout(userScrollTimeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section className="py-12 bg-white">
@@ -78,16 +124,16 @@ export default function ProductCarousel({
           <button
             onClick={scrollLeft}
             className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <ChevronLeft className="w-6 h-6 text-gray-600" />
           </button>
           <button
             onClick={scrollRight}
             className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </button>
@@ -95,8 +141,12 @@ export default function ProductCarousel({
             ref={scrollRef}
             className="flex gap-6 overflow-x-auto scrollbar-hide pb-4"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchEnd}
+            onScroll={handleScroll}
           >
             {products.map((product) => (
               <div key={product.id} className="flex-none w-80">
