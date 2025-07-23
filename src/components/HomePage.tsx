@@ -45,7 +45,7 @@ export default function HomePage({ onProductClick, onCategoryClick }: HomePagePr
     <div className="min-h-screen">
       <HeroSection />
       <BrandBanner />
-      <TrustBadges />
+      {/* <TrustBadges /> */}
       <CategoriesSection onCategoryClick={onCategoryClick} />
       <PromotionalAd onCategoryClick={onCategoryClick} />
       
