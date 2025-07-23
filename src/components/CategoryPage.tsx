@@ -1,15 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { Filter, Grid, List } from 'lucide-react';
-import ProductCard from './ProductCard';
 import { products } from '../data/products';
 import { Product } from '../context/CartContext';
 
 interface CategoryPageProps {
   category: string;
   onProductClick: (product: Product) => void;
+  onViewClick?: (product: Product) => void;
 }
 
-export default function CategoryPage({ category, onProductClick }: CategoryPageProps) {
+export default function CategoryPage({ category, onProductClick, onViewClick }: CategoryPageProps) {
   const [sortBy, setSortBy] = useState('name');
   const [priceRange, setPriceRange] = useState([0, 100]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -143,17 +143,61 @@ export default function CategoryPage({ category, onProductClick }: CategoryPageP
                 : 'grid-cols-1'
             }`}>
               {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onProductClick={onProductClick}
-                />
+                <div key={product.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group">
+                  <div className="relative overflow-hidden">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-2 right-2">
+                      <span className="bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                        {product.inStock ? 'In Stock' : 'Out of Stock'}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4">
+                    <h4 className="font-semibold text-lg mb-2 group-hover:text-emerald-600 transition-colors">
+                      {product.name}
+                    </h4>
+                    <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                      {product.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-2xl font-bold text-emerald-600">
+                        £{product.price.toFixed(2)}
+                      </span>
+                      <span className="text-sm text-gray-500">{product.weight}</span>
+                    </div>
+                    
+                    <div className="flex space-x-2">
+                      <button
+                        onClick={() => onProductClick(product)}
+                        disabled={!product.inStock}
+                        className="flex-1 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-medium"
+                      >
+                        {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                      </button>
+                      {onViewClick && (
+                        <button
+                          onClick={() => onViewClick(product)}
+                          className="px-4 py-2 border border-emerald-600 text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium"
+                        >
+                          View
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
 
             {filteredProducts.length === 0 && (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
+                <div className="text-gray-400 text-6xl mb-4">🛒</div>
+                <p className="text-gray-600">No products found matching your criteria.</p>
               </div>
             )}
           </div>
