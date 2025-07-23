@@ -46,26 +46,27 @@ export default function CartPage({ onCheckoutClick, onContinueShoppingClick }: C
               <div className="divide-y divide-gray-200">
                 {items.map((item) => (
                   <div key={item.id} className="p-6">
-                    <div className="flex items-center space-x-4">
-                      {/* Image and Product Info Grid */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center flex-1">
+                    <div className="grid grid-cols-1 sm:grid-cols-[auto,1fr,auto,auto,auto] gap-4 items-center">
+                      {/* Image - spans full width on mobile, auto width on sm+ */}
+                      <div className="sm:col-span-1">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-16 h-16 object-cover rounded-lg justify-self-center sm:justify-self-start"
+                          className="w-16 h-16 object-cover rounded-lg mx-auto sm:mx-0"
                         />
-                        
-                        <div className="text-center sm:text-left">
-                          <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
-                          <p className="text-sm text-gray-600">{item.category}</p>
-                          {item.weight && (
-                            <p className="text-sm text-gray-500">{item.weight}</p>
-                          )}
-                        </div>
+                      </div>
+                      
+                      {/* Product Info - spans full width on mobile, auto on sm+ */}
+                      <div className="sm:col-span-1 text-center sm:text-left">
+                        <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
+                        <p className="text-sm text-gray-600">{item.category}</p>
+                        {item.weight && (
+                          <p className="text-sm text-gray-500">{item.weight}</p>
+                        )}
                       </div>
 
-                      <div className="flex items-center space-x-4">
-                        {/* Quantity Controls */}
+                      {/* Quantity Controls */}
+                      <div className="sm:col-span-1 flex justify-center sm:justify-start">
                         <div className="flex items-center border border-gray-300 rounded-lg">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -83,18 +84,20 @@ export default function CartPage({ onCheckoutClick, onContinueShoppingClick }: C
                             <Plus size={16} />
                           </button>
                         </div>
+                      </div>
 
-                        {/* Price */}
-                        <div className="text-right min-w-[80px]">
-                          <p className="text-lg font-semibold text-emerald-600">
-                            £{(item.price * item.quantity).toFixed(2)}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            £{item.price.toFixed(2)} each
-                          </p>
-                        </div>
+                      {/* Price */}
+                      <div className="sm:col-span-1 text-center sm:text-right min-w-[80px]">
+                        <p className="text-lg font-semibold text-emerald-600">
+                          £{(item.price * item.quantity).toFixed(2)}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          £{item.price.toFixed(2)} each
+                        </p>
+                      </div>
 
-                        {/* Remove Button */}
+                      {/* Remove Button */}
+                      <div className="sm:col-span-1 flex justify-center sm:justify-start">
                         <button
                           onClick={() => removeItem(item.id)}
                           className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
