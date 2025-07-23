@@ -51,7 +51,7 @@ export default function HomePage({ onProductClick, onCategoryClick }: HomePagePr
       
       {/* Groceries Categories - Keep as is */}
       <ProductCarousel
-        title="Groceries Categories"
+        title="Groceries "
         products={groceriesProducts}
         onProductClick={onProductClick}
         onCategoryClick={onCategoryClick}
