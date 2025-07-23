@@ -1,4 +1,5 @@
 import React from 'react';
+import image from '../images/nimi.png'
 
 interface Category {
   name: string;
@@ -11,12 +12,12 @@ interface CategoriesSectionProps {
 }
 
 const categories: Category[] = [
-  { name: 'Fresh Food', icon: '🥬', image: 'https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop' },
-  { name: 'Dry Goods', icon: '🌾', image: 'https://images.pexels.com/photos/1618643/pexels-photo-1618643.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop' },
-  { name: 'Frozen', icon: '🧊', image: 'https://images.pexels.com/photos/65175/pexels-photo-65175.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop' },
-  { name: 'Drinks', icon: '🥤', image: 'https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop' },
-  { name: 'Snacks', icon: '🍿', image: 'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop' },
-  { name: 'Health & Beauty', icon: '💄', image: 'https://images.pexels.com/photos/4465124/pexels-photo-4465124.jpeg?auto=compress&cs=tinysrgb&w=300&h=200&fit=crop' }
+  { name: 'Fresh Food', icon: '🥬', image: image },
+  { name: 'Dry Goods', icon: '🌾', image: image },
+  { name: 'Frozen', icon: '🧊', image: image },
+  { name: 'Drinks', icon: '🥤', image: image },
+  { name: 'Snacks', icon: '🍿', image: image },
+  { name: 'Health & Beauty', icon: '💄', image: image }
 ];
 
 export default function CategoriesSection({ onCategoryClick }: CategoriesSectionProps): JSX.Element {
