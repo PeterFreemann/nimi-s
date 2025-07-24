@@ -83,7 +83,7 @@ export default function HeroSection(): JSX.Element {
         <div className={`hero-image relative transform transition-all duration-1000 ease-out ${
           isVisible ? 'translate-x-0 opacity-100 scale-100' : 'translate-x-full opacity-0 scale-75'
         }`}>
-          <div className="relative w-full h-96 overflow-hidden rounded-2xl shadow-2xl group">
+          <div className="relative w-full h-64 md:h-96 overflow-hidden rounded-2xl shadow-2xl group">
             {images.map((image, index) => (
               <img
                 key={index}
