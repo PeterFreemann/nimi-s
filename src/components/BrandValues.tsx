@@ -64,12 +64,12 @@ export default function BrandValues({ onCategoryClick }: BrandValuesProps): JSX.
             </div>
             
             <div className="mt-8">
-              <button 
+              {/* <button 
                 onClick={() => onCategoryClick('all')}
                 className="bg-emerald-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-emerald-700 transition-colors"
               >
                 Experience the Difference
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

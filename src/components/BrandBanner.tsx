@@ -7,19 +7,7 @@ export default function BrandBanner(): JSX.Element {
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center text-white">
           {/* Animated header with shopping bag */}
-          <div className="flex justify-center items-center mb-4 animate-fadeInUp">
-            <ShoppingBag 
-              className="mr-3 animate-bounce" 
-              size={32}
-              style={{
-                animation: 'bounce 2s infinite, float 3s ease-in-out infinite',
-                animationDelay: '0.5s'
-              }}
-            />
-            <h2 className="text-2xl md:text-3xl font-bold animate-slideInRight">
-              Join 10,000+ Happy Customers
-            </h2>
-          </div>
+          
           
           {/* Animated subtitle */}
           <p className="text-emerald-100 text-lg mb-6 animate-fadeInUp opacity-0"

@@ -135,8 +135,9 @@ function App() {
         <div className="min-h-screen bg-gray-50">
           <Header
             currentPage={currentPage}
-            onPageChange={handlePageChange}
+            onPageChange={handlePageChange}  
             onSearch={handleSearch}
+            selectedCategory={selectedCategory} // Add this prop
           />
           <main>{renderCurrentPage()}</main>
           <Footer />

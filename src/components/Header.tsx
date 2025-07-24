@@ -7,9 +7,10 @@ interface HeaderProps {
   currentPage: string;
   onPageChange: (page: string) => void;
   onSearch: (query: string) => void;
+  selectedCategory?: string; // Add this prop to pass the selected category
 }
 
-export default function Header({ currentPage, onPageChange, onSearch }: HeaderProps) {
+export default function Header({ currentPage, onPageChange, onSearch, selectedCategory }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { itemCount, total } = useCart();
@@ -137,7 +138,7 @@ export default function Header({ currentPage, onPageChange, onSearch }: HeaderPr
             />
             <button
               type="submit"
-              className="bg-orange-500 text-white px-5 py-3 text-xl"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-3 text-xl transition-colors duration-300"
             >
               <Search size={20} />
             </button>
@@ -149,26 +150,75 @@ export default function Header({ currentPage, onPageChange, onSearch }: HeaderPr
       <nav className={`border-t border-white border-opacity-20 ${isMobileMenuOpen ? 'block' : 'hidden'} md:block`}>
         <div className="max-w-6xl mx-auto px-5 py-2">
           <div className="flex flex-col md:flex-row md:items-center md:space-x-8 gap-2">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => {
-                  if (item.category) {
-                    onPageChange(`category-${item.category}`);
-                  } else {
-                    onPageChange(item.page);
-                  }
-                  setIsMobileMenuOpen(false);
-                }}
-                className={`text-left py-2 px-4 rounded-full font-medium transition-all duration-300 hover:bg-white hover:bg-opacity-10 hover:text-orange-500 ${
-                  currentPage === item.page || currentPage === `category-${item.category}` 
-                    ? 'text-orange-500 bg-white bg-opacity-10' 
-                    : 'text-white'
-                }`}
-              >
-                {item.name}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              // Fixed active state logic
+              let isActive = false;
+              
+              if (item.category) {
+                // For category items, check if we're on category page and the selected category matches
+                isActive = currentPage === 'category' && selectedCategory === item.category;
+              } else {
+                // For non-category items (like Home)
+                isActive = currentPage === item.page;
+              }
+              
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => {
+                    if (item.category) {
+                      onPageChange(`category-${item.category}`);
+                    } else {
+                      onPageChange(item.page);
+                    }
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className={`text-left py-2 px-4 rounded-full font-medium transition-all duration-300 ${
+                    isActive
+                      ? 'text-orange-400 bg-white bg-opacity-20' 
+                      : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-orange-300'
+                  }`}
+                >
+                  {item.name}
+                </button>
+              );
+            })}
+            
+            {/* Mobile Auth Button */}
+            <div className="md:hidden mt-2 pt-2 border-t border-white border-opacity-20">
+              {user ? (
+                <div className="space-y-2">
+                  <button
+                    onClick={() => {
+                      onPageChange('account');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full text-left py-2 px-4 rounded-full font-medium text-white hover:bg-white hover:bg-opacity-10 hover:text-orange-300 transition-all duration-300"
+                  >
+                    My Account
+                  </button>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full text-left py-2 px-4 rounded-full font-medium text-white hover:bg-white hover:bg-opacity-10 hover:text-orange-300 transition-all duration-300"
+                  >
+                    Sign Out
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    onPageChange('login');
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full text-left py-2 px-4 rounded-full font-medium border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300"
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </nav>

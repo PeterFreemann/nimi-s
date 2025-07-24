@@ -65,7 +65,7 @@ export default function CombinedCategorySection({
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Grid - Category Selection */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-4">
+            <div className="bg-white rounded-xl shadow-lg p-6 sticky top-32">
               <h3 className="text-xl font-semibold mb-6 text-gray-800">Categories</h3>
               <div className="space-y-4">
                 {categories.map((category) => (
