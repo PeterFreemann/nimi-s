@@ -21,7 +21,7 @@ const categories = [
     id: 'meat',
     name: 'Fish, Meat and Poultry',
     icon: '🐟',
-    description: 'Fresh and frozen proteins'
+    description: 'Fresh and Frozen proteins proteins'
   },
   {
     id: 'beauty',

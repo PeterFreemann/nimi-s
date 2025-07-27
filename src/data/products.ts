@@ -4,7 +4,7 @@ import image from '../images/nimi.png'
 export const categories = [
   'Fresh Food',
   'Dry Goods', 
-  'Frozen',
+  'Frozen proteins',
   'Drinks',
   'Snacks',
   'Health & Beauty',
@@ -73,11 +73,11 @@ export const products: Product[] = [
   },
   {
     id: '6',
-    name: 'Frozen Goat Meat 1kg',
+    name: 'Frozen proteins Goat Meat 1kg',
     price: 18.99,
     image: image,
-    category: 'Frozen',
-    description: 'Premium frozen goat meat, perfect for pepper soup and stews.',
+    category: 'Frozen proteins',
+    description: 'Premium Frozen proteins goat meat, perfect for pepper soup and stews.',
     inStock: true,
     weight: '1kg'
   },
@@ -113,11 +113,11 @@ export const products: Product[] = [
   },
   {
     id: '10',
-    name: 'Cassava Leaves Frozen 500g',
+    name: 'Cassava Leaves Frozen proteins 500g',
     price: 7.99,
     image: image,
-    category: 'Frozen',
-    description: 'Frozen cassava leaves for traditional West African dishes.',
+    category: 'Frozen proteins',
+    description: 'Frozen proteins cassava leaves for traditional West African dishes.',
     inStock: true,
     weight: '500g'
   },
@@ -240,11 +240,11 @@ export const products: Product[] = [
   },
   {
     id: '22',
-    name: 'Frozen Chicken Wings 2kg',
+    name: 'Frozen proteins Chicken Wings 2kg',
     price: 14.99,
     image: image,
     category: 'Meat, Fish & Poultry',
-    description: 'Premium frozen chicken wings, perfect for grilling.',
+    description: 'Premium Frozen proteins chicken wings, perfect for grilling.',
     inStock: true,
     weight: '2kg'
   },
@@ -290,11 +290,11 @@ export const products: Product[] = [
   },
   {
     id: '27',
-    name: 'Prawns (Large) Frozen 1kg',
+    name: 'Prawns (Large) Frozen proteins 1kg',
     price: 24.99,
     image: image,
     category: 'Meat, Fish & Poultry',
-    description: 'Large frozen prawns, peeled and deveined.',
+    description: 'Large Frozen proteins prawns, peeled and deveined.',
     inStock: true,
     weight: '1kg'
   },
@@ -437,7 +437,7 @@ export const products: Product[] = [
 
 // Updated product arrays for homepage sections
 export const groceriesProducts = products.filter(product => 
-  ['Fresh Food', 'Dry Goods', 'Frozen', 'Drinks', 'Snacks', 'Vegetables & Fresh Produce'].includes(product.category)
+  ['Fresh Food', 'Dry Goods', 'Frozen proteins', 'Drinks', 'Snacks', 'Vegetables & Fresh Produce'].includes(product.category)
 );
 
 export const ethnicFoodsProducts = products.filter(product => 

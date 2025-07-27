@@ -11,7 +11,7 @@ export default function PromotionalAd({ onCategoryClick }: PromotionalAdProps): 
       <div className="max-w-7xl mx-auto px-4 h-full">
         <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full animate-fadeInScale">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 h-[500px]">
-            <div className="bg-gradient-to-br from-orange-500 to-red-500 p-8 text-white flex flex-col justify-center">
+            <div className="bg-gradient-to-br from-amber-500 to-red-500 p-8 text-white flex flex-col justify-center">
               <div className="mb-4">
                 <span className="inline-block bg-yellow-400 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold mb-4 animate-pulse-glow">
                   LIMITED TIME OFFER

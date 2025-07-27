@@ -15,7 +15,7 @@ export default function Footer() {
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+            <button className="bg-amber-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-semibold transition-colors">
               Subscribe
             </button>
           </div>
@@ -29,7 +29,7 @@ export default function Footer() {
             {/* Company Info */}
             <div>
               <div className="mb-4">
-                <h1 className="text-4xl font-black text-orange-500 drop-shadow-lg mb-1">
+                <h1 className="text-4xl font-black text-amber-500 drop-shadow-lg mb-1">
                   Nimi's Store
                 </h1>
                 <p className="text-sm text-green-100 font-medium">
@@ -63,11 +63,11 @@ export default function Footer() {
             <div>
               <h4 className="text-lg font-semibold mb-4">Categories</h4>
               <ul className="space-y-2">
-                <li><a href="#" className="text-green-100 hover:text-white transition-colors">Fresh Food</a></li>
+                <li><a href="#" className="text-green-100 hover:text-white transition-colors">Fresh Farm Produce</a></li>
                 <li><a href="#" className="text-green-100 hover:text-white transition-colors">Dry Goods</a></li>
-                <li><a href="#" className="text-green-100 hover:text-white transition-colors">Frozen Foods</a></li>
-                <li><a href="#" className="text-green-100 hover:text-white transition-colors">Drinks</a></li>
-                <li><a href="#" className="text-green-100 hover:text-white transition-colors">Health & Beauty</a></li>
+                <li><a href="#" className="text-green-100 hover:text-white transition-colors">Frozen Proteins </a></li>
+                <li><a href="#" className="text-green-100 hover:text-white transition-colors">African Soft Drinks</a></li>
+                {/* <li><a href="#" className="text-green-100 hover:text-white transition-colors">Health & Beauty</a></li> */}
               </ul>
             </div>
 
@@ -76,18 +76,18 @@ export default function Footer() {
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <MapPin size={16} className="text-orange-500" />
+                  <MapPin size={16} className="text-amber-500" />
                   <span className="text-green-100 text-sm">
-                    82-89 Cecil Street, Birmingham B19 3SU, UK
+                    Unit 6F S10 Morelands Trading Estate, GL1 5SA
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Phone size={16} className="text-orange-500" />
-                  <span className="text-green-100 text-sm">+44 7944 581441</span>
+                  <Phone size={16} className="text-amber-500" />
+                  <span className="text-green-100 text-sm">07563007938</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Mail size={16} className="text-orange-500" />
-                  <span className="text-green-100 text-sm">online@samisonline.com</span>
+                  <Mail size={16} className="text-amber-500" />
+                  <span className="text-green-100 text-sm">Nimistores2025@gmail.com</span>
                 </div>
               </div>
 
@@ -101,9 +101,9 @@ export default function Footer() {
                   <div className="bg-white rounded px-2 py-1">
                     <span className="text-xs font-bold text-gray-900">MC</span>
                   </div>
-                  <div className="bg-white rounded px-2 py-1">
+                  {/* <div className="bg-white rounded px-2 py-1">
                     <span className="text-xs font-bold text-blue-600">PayPal</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

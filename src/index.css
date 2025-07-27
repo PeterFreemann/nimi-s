@@ -218,4 +218,11 @@
     font-size: 1rem;
     text-align: center;
   }
+  .company-name {
+    display: none;
+  }
+  .logo{
+    height: 40px;
+  }
+
 }

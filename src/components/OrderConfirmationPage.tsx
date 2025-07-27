@@ -91,7 +91,7 @@ export default function OrderConfirmationPage({ onContinueShoppingClick }: Order
               </a>{' '}
               or call{' '}
               <a href="tel:+447944581441" className="text-emerald-600 hover:text-emerald-700 font-medium">
-                +44 7944 581441
+                07563007938
               </a>
             </p>
           </div>

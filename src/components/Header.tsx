@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import logo from '../images/logo.jpg';
 
 interface HeaderProps {
   currentPage: string;
@@ -24,12 +25,13 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
 
   const navItems = [
     { name: 'Home', page: 'home' },
-    { name: 'Fresh Food', page: 'category', category: 'Fresh Food' },
-    { name: 'Dry Goods', page: 'category', category: 'Dry Goods' },
-    { name: 'Frozen', page: 'category', category: 'Frozen' },
-    { name: 'Drinks', page: 'category', category: 'Drinks' },
+    { name: 'Fresh Farm Produce', page: 'category', category: 'Fresh Food' },
+    // { name: 'Dry Goods', page: 'category', category: 'Dry Goods' },
+    { name: 'Frozen Proteins', page: 'category', category: 'Frozen proteins' },
+    { name: 'African Soft Drinks', page: 'category', category: 'Drinks' },
+    { name: ' Fruit wine', page: 'category', category: 'Whine' },
     { name: 'Snacks', page: 'category', category: 'Snacks' },
-    { name: 'Health & Beauty', page: 'category', category: 'Health & Beauty' }
+    // { name: 'Health & Beauty', page: 'category', category: 'Health & Beauty' }
   ];
 
   return (
@@ -39,13 +41,12 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
         <div className="flex items-center justify-between py-4 flex-wrap gap-5">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div>
-              <h1 className="text-4xl font-black text-orange-500 drop-shadow-lg mb-1">
+            <div className='flex flex-row items-center space-x-2'>
+              <img src={logo} alt="" className='h-[25px] logo' />
+              <h1 className="text-4xl font-black text-amber-500 drop-shadow-lg mb-1 company-name">
                 Nimi's Store
               </h1>
-              <p className="text-sm text-green-100 font-medium">
-                African & Caribbean Groceries
-              </p>
+             
             </div>
           </div>
 
@@ -61,7 +62,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
               />
               <button
                 type="submit"
-                className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-3 text-xl transition-colors duration-300"
+                className="bg-amber-500 hover:bg-orange-600 text-white px-5 py-3 text-xl transition-colors duration-300"
               >
                 <Search size={20} />
               </button>
@@ -74,7 +75,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
             <div className="hidden md:block">
               {user ? (
                 <div className="relative group">
-                  <button className="border-2 border-orange-500 text-orange-500 px-5 py-2 rounded-full font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300">
+                  <button className="border-2 border-amber-500 text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300">
                     Hi, {user.name}
                   </button>
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
@@ -95,7 +96,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
               ) : (
                 <button
                   onClick={() => onPageChange('login')}
-                  className="border-2 border-orange-500 text-orange-500 px-5 py-2 rounded-full font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300"
+                  className="border-2 border-amber-500 text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300"
                 >
                   Sign In
                 </button>
@@ -105,12 +106,12 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
             {/* Cart Button */}
             <button
               onClick={() => onPageChange('cart')}
-              className="relative bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-full font-semibold transition-colors duration-300 flex items-center space-x-2"
+              className="relative bg-amber-500 hover:bg-orange-600 text-white px-5 py-2 rounded-full font-semibold transition-colors duration-300 flex items-center space-x-2"
             >
               <ShoppingCart size={20} />
               <span className="hidden sm:block">£{total.toFixed(2)}</span>
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-white text-orange-500 text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+                <span className="absolute -top-2 -right-2 bg-white text-amber-500 text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
                   {itemCount}
                 </span>
               )}
@@ -138,7 +139,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
             />
             <button
               type="submit"
-              className="bg-orange-500 hover:bg-orange-600 text-white px-5 py-3 text-xl transition-colors duration-300"
+              className="bg-amber-500 hover:bg-orange-600 text-white px-5 py-3 text-xl transition-colors duration-300"
             >
               <Search size={20} />
             </button>
@@ -213,7 +214,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
                     onPageChange('login');
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full text-left py-2 px-4 rounded-full font-medium border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white transition-all duration-300"
+                  className="w-full text-left py-2 px-4 rounded-full font-medium border-2 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white transition-all duration-300"
                 >
                   Sign In
                 </button>

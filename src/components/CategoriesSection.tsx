@@ -14,7 +14,7 @@ interface CategoriesSectionProps {
 const categories: Category[] = [
   { name: 'Fresh Food', icon: '🥬', image: image },
   { name: 'Dry Goods', icon: '🌾', image: image },
-  { name: 'Frozen', icon: '🧊', image: image },
+  { name: 'Frozen proteins', icon: '🧊', image: image },
   { name: 'Drinks', icon: '🥤', image: image },
   { name: 'Snacks', icon: '🍿', image: image },
   { name: 'Health & Beauty', icon: '💄', image: image }
