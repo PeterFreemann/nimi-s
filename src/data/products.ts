@@ -73,7 +73,7 @@ export const products: Product[] = [
   },
   {
     id: '6',
-    name: 'Frozen proteins Goat Meat 1kg',
+    name: 'Frozen Goat Meat 1kg',
     price: 18.99,
     image: image,
     category: 'Frozen proteins',
@@ -113,7 +113,7 @@ export const products: Product[] = [
   },
   {
     id: '10',
-    name: 'Cassava Leaves Frozen proteins 500g',
+    name: 'Cassava Leaves 500g',
     price: 7.99,
     image: image,
     category: 'Frozen proteins',
@@ -240,7 +240,7 @@ export const products: Product[] = [
   },
   {
     id: '22',
-    name: 'Frozen proteins Chicken Wings 2kg',
+    name: 'Frozen Chicken Wings 2kg',
     price: 14.99,
     image: image,
     category: 'Meat, Fish & Poultry',
