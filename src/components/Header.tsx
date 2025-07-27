@@ -29,7 +29,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
     // { name: 'Dry Goods', page: 'category', category: 'Dry Goods' },
     { name: 'Frozen Proteins', page: 'category', category: 'Frozen proteins' },
     { name: 'African Soft Drinks', page: 'category', category: 'Drinks' },
-    { name: ' Fruit wine', page: 'category', category: 'Whine' },
+    { name: ' Fruit Wine', page: 'category', category: 'Whine' },
     { name: 'Snacks', page: 'category', category: 'Snacks' },
     // { name: 'Health & Beauty', page: 'category', category: 'Health & Beauty' }
   ];
