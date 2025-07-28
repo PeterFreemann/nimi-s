@@ -69,12 +69,12 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className='flex flex-row items-center space-x-2'>
-                <img src={logo} alt="" className='h-[48px] ' />
+                <img src={logo} alt="" className='h-[40px] ' />
                 <div className='company-name flex flex-col items-start'>
-                  <h1 className="text-4xl font-black text-amber-500 drop-shadow-lg  ">
+                  <h1 className="text-2xl font-black font-sans text-amber-500 drop-shadow-lg font-sans  ">
                   Nimi Store
                 </h1>
-                <p className='text-[10px]'>African & Caribbean Groceries</p>
+                <p className='text-[10px] font-sans'>African & Caribbean Groceries</p>
                 </div>
                 
               </div>
@@ -105,7 +105,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
               <div className="hidden md:block">
                 {user ? (
                   <div className="relative group">
-                    <button className="border-2 border-amber-500 text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300">
+                    <button className="border-2 border-amber-500 font-sans text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300">
                       Hi, {user.name}
                     </button>
                     <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
@@ -126,7 +126,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
                 ) : (
                   <button
                     onClick={() => onPageChange('login')}
-                    className="border-2 border-amber-500 text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300"
+                    className="border-2 border-amber-500 font-sans text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300"
                   >
                     Sign In
                   </button>
@@ -141,7 +141,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
                 <ShoppingCart size={20} />
                 <span className="hidden sm:block">£{total.toFixed(2)}</span>
                 {itemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-white text-amber-500 text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+                  <span className="absolute -top-2 -right-2 bg-white font-sans text-amber-500 text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
                     {itemCount}
                   </span>
                 )}
@@ -244,7 +244,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
                       onPageChange('login');
                       setIsMobileMenuOpen(false);
                     }}
-                    className="w-full text-left py-2 px-4 rounded-full font-medium border-2 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white transition-all duration-300"
+                    className="w-full text-left py-2 px-4 rounded-full font-medium border-2 border-amber-500 font-sans text-amber-500 hover:bg-amber-500 hover:text-white transition-all duration-300"
                   >
                     Sign In
                   </button>

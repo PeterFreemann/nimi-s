@@ -29,7 +29,7 @@ export default function Footer() {
             {/* Company Info */}
             <div>
               <div className="mb-4">
-                <h1 className="text-4xl font-black text-amber-500 drop-shadow-lg mb-1">
+                <h1 className="text-4xl font-black font-sans text-amber-500 drop-shadow-lg mb-1">
                   Nimi Store
                 </h1>
                 <p className="text-sm text-green-100 font-medium">
@@ -76,17 +76,17 @@ export default function Footer() {
               <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <MapPin size={16} className="text-amber-500" />
+                  <MapPin size={16} className="font-sans text-amber-500" />
                   <span className="text-green-100 text-sm">
                     Unit 6F S10 Morelands Trading Estate, GL1 5SA
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Phone size={16} className="text-amber-500" />
+                  <Phone size={16} className="font-sans text-amber-500" />
                   <span className="text-green-100 text-sm">07563007938</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Mail size={16} className="text-amber-500" />
+                  <Mail size={16} className="font-sans text-amber-500" />
                   <span className="text-green-100 text-sm">Nimistores2025@gmail.com</span>
                 </div>
               </div>
