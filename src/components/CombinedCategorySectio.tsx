@@ -60,7 +60,7 @@ export default function CombinedCategorySection({
   return (
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Specialty Categories</h2>
+        <h2 className="text-2xl font-bold text-start mb-12">Specialty Categories</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Left Grid - Category Selection */}

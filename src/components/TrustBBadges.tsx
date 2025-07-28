@@ -14,8 +14,8 @@ export default function TrustBadges(): JSX.Element {
             <p className="text-gray-600">Same day delivery available across the UK</p>
           </div>
           <div className="flex flex-col items-center">
-            <div className="bg-orange-100 p-4 rounded-full mb-4">
-              <DollarSign className="text-orange-600" size={32} />
+            <div className="bg-amber-100 p-4 rounded-full mb-4">
+              <DollarSign className="text-amber-600" size={32} />
             </div>
             <h3 className="text-lg font-semibold mb-2">Fair Prices</h3>
             <p className="text-gray-600">Competitive prices on all authentic products</p>

@@ -9,6 +9,7 @@ export default function BrandValues({ onCategoryClick }: BrandValuesProps): JSX.
   return (
     <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-4 text-gray-900">Why Choose Us?</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Image */}
           <div className="relative">
@@ -22,8 +23,9 @@ export default function BrandValues({ onCategoryClick }: BrandValuesProps): JSX.
           
           {/* Right side - Content */}
           <div>
+            
             <div className="mb-8">
-              <h2 className="text-3xl font-bold mb-4 text-gray-900">Why Choose Us?</h2>
+              
               <p className="text-gray-600 text-lg">
                 We're more than just a grocery store - we're your connection to home
               </p>
@@ -39,7 +41,7 @@ export default function BrandValues({ onCategoryClick }: BrandValuesProps): JSX.
               </div>
               
               <div className="text-center sm:text-left">
-                <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto sm:mx-0">
+                <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto sm:mx-0">
                   <span className="text-2xl">🚛</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-gray-900">Rapid Delivery</h3>
@@ -55,7 +57,7 @@ export default function BrandValues({ onCategoryClick }: BrandValuesProps): JSX.
               </div>
               
               <div className="text-center sm:text-left">
-                <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto sm:mx-0">
+                <div className="bg-amber-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto sm:mx-0">
                   <span className="text-2xl">👨‍👩‍👧‍👦</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-gray-900">Family Business</h3>

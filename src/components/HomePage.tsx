@@ -56,7 +56,7 @@ export default function HomePage({ onProductClick, onCategoryClick }: HomePagePr
         onProductClick={onProductClick}
         onCategoryClick={onCategoryClick}
         onViewClick={handleProductView}
-        autoScrollInterval={3000}
+        autoScrollInterval={1000}
       />
       
       <BrandValues onCategoryClick={onCategoryClick} />

@@ -57,7 +57,7 @@ export default function HeroSection(): JSX.Element {
           <div className={`hero-features grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 transform transition-all duration-1000 delay-500 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-12 opacity-0'
           }`}>
-            <div className="feature p-4 rounded-lg bg-gradient-to-br from-orange-50 to-red-50 hover:scale-105 transition-transform duration-300">
+            <div className="feature p-4 rounded-lg bg-gradient-to-br from-amber-50 to-red-50 hover:scale-105 transition-transform duration-300">
               <span className="text-2xl mb-2 block animate-pulse">🚚</span>
               <h3 className="font-semibold text-gray-900 mb-1">Fast Delivery</h3>
               <p className="text-sm text-gray-600">Next-day delivery available</p>
@@ -67,7 +67,7 @@ export default function HeroSection(): JSX.Element {
               <h3 className="font-semibold text-gray-900 mb-1">Fair Prices</h3>
               <p className="text-sm text-gray-600">Best prices guaranteed</p>
             </div>
-            <div className="feature p-4 rounded-lg bg-gradient-to-br from-yellow-50 to-orange-50 hover:scale-105 transition-transform duration-300 delay-200">
+            <div className="feature p-4 rounded-lg bg-gradient-to-br from-yellow-50 to-amber-50 hover:scale-105 transition-transform duration-300 delay-200">
               <span className="text-2xl mb-2 block animate-pulse">✨</span>
               <h3 className="font-semibold text-gray-900 mb-1">Quality Products</h3>
               <p className="text-sm text-gray-600">Fresh, authentic ingredients</p>

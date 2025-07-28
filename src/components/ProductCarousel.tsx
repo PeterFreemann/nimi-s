@@ -112,7 +112,7 @@ export default function ProductCarousel({
     <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold">{title}</h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
           <button
             onClick={() => onCategoryClick('all')}
             className="text-emerald-600 hover:text-emerald-700 font-semibold"

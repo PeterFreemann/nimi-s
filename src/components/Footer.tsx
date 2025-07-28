@@ -15,7 +15,7 @@ export default function Footer() {
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
             />
-            <button className="bg-amber-500 hover:bg-orange-600 px-6 py-3 rounded-lg font-semibold transition-colors">
+            <button className="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg font-semibold transition-colors">
               Subscribe
             </button>
           </div>
@@ -30,7 +30,7 @@ export default function Footer() {
             <div>
               <div className="mb-4">
                 <h1 className="text-4xl font-black text-amber-500 drop-shadow-lg mb-1">
-                  Nimi's Store
+                  Nimi Store
                 </h1>
                 <p className="text-sm text-green-100 font-medium">
                   African & Caribbean Groceries
@@ -116,7 +116,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-green-100 text-sm">
-              © 2025 Nimi's Store. All rights reserved.
+              © 2025 Nimi Store. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-green-100 hover:text-white transition-colors">Privacy Policy</a>
