@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProductModal from './ProductModal';
+import Chatbot from './chatbot'; // Make sure this file exists!
 import { 
   groceriesProducts, 
   ethnicFoodsProducts, 
@@ -79,6 +80,9 @@ export default function HomePage({ onProductClick, onCategoryClick }: HomePagePr
         isOpen={isModalOpen}
         onClose={closeModal}
       />
+
+      {/* Customer Support Chatbot - This should appear as a floating button */}
+      <Chatbot onCategoryClick={onCategoryClick} />
     </div>
   );
 }
