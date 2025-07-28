@@ -112,48 +112,60 @@ export default function CombinedCategorySection({
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {selectedProducts.map((product) => (
-                  <div key={product.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group">
+                  <div key={product.id} className="bg-white rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group relative">
+                    {/* New Badge */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="bg-orange-500 text-white px-3 py-1 rounded text-xs font-medium">
+                        New
+                      </span>
+                    </div>
+                    
+                    {/* Stock Status */}
+                    <div className="absolute top-3 right-3 z-10">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                        product.inStock 
+                          ? 'bg-emerald-500 text-white' 
+                          : 'bg-red-500 text-white'
+                      }`}>
+                        {product.inStock ? 'In Stock' : 'Out of Stock'}
+                      </span>
+                    </div>
+
                     <div className="relative overflow-hidden">
                       <img
                         src={product.image}
                         alt={product.name}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <div className="absolute top-2 right-2">
-                        <span className="bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-medium">
-                          {product.inStock ? 'In Stock' : 'Out of Stock'}
-                        </span>
-                      </div>
                     </div>
                     
                     <div className="p-4">
-                      <h4 className="font-semibold text-lg mb-2 group-hover:text-emerald-600 transition-colors">
+                      <h4 className="font-semibold text-lg mb-2 group-hover:text-emerald-600 transition-colors line-clamp-2">
                         {product.name}
                       </h4>
-                      <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                        {product.description}
-                      </p>
                       
                       <div className="flex items-center justify-between mb-4">
-                        <span className="text-2xl font-bold text-emerald-600">
+                        <span className="text-xl font-bold text-gray-900">
                           £{product.price.toFixed(2)}
                         </span>
-                        <span className="text-sm text-gray-500">{product.weight}</span>
+                        {product.weight && (
+                          <span className="text-sm text-gray-500">{product.weight}</span>
+                        )}
                       </div>
                       
-                      <div className="flex space-x-2">
+                      <div className="space-y-2">
                         <button
                           onClick={() => onProductClick(product)}
                           disabled={!product.inStock}
-                          className="flex-1 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-medium"
+                          className="w-full bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed font-medium"
                         >
-                          {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                          {product.inStock ? 'Add to cart' : 'Out of Stock'}
                         </button>
                         <button
                           onClick={() => onViewClick(product)}
-                          className="px-4 py-2 border border-emerald-600 text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium"
+                          className="w-full px-4 py-2 border border-emerald-600 text-emerald-600 rounded-lg hover:bg-emerald-50 transition-colors font-medium"
                         >
-                          View
+                          View Details
                         </button>
                       </div>
                     </div>

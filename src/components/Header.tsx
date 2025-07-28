@@ -257,7 +257,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
 
       {/* Hero Section */}
       {currentHeroImage && (
-        <div className="relative h-64 md:h-80 overflow-hidden px-10" >
+        <div className="relative h-64 md:h-100 overflow-hidden px-10" >
           <img 
             src={currentHeroImage} 
             alt="Category Hero" 
