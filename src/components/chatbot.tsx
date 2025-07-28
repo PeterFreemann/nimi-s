@@ -339,7 +339,8 @@ export default function EnhancedChatbot({ onCategoryClick }: ChatbotProps) {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me anything about our products..."
-                className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-sm"
+                className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 text-base"
+                style={{ fontSize: '16px' }}
               />
               <button
                 onClick={handleSendMessage}
