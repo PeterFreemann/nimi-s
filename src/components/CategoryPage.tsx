@@ -12,18 +12,56 @@ interface CategoryPageProps {
 export default function CategoryPage({ category, onProductClick, onViewClick }: CategoryPageProps) {
   const [sortBy, setSortBy] = useState('name');
   const [priceRange, setPriceRange] = useState([0, 100]);
+  const [weightRange, setWeightRange] = useState([0, 5000]); // in grams
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 16; // 4 columns x 4 rows
+
+  // Category mapping to match header component
+  const categoryMapping = [
+    { name: 'Fresh Farm Produce', category: 'Fresh Food' },
+    { name: 'Frozen Proteins', category: 'Frozen proteins' },
+    { name: 'African Soft Drinks', category: 'Drinks' },
+    { name: 'Fruit Wine', category: 'Wine' },
+    { name: 'Snacks', category: 'Snacks' },
+  ];
+
+  const categories = categoryMapping.map(item => item.category);
 
   const filteredProducts = useMemo(() => {
     let filtered = category === 'all' 
       ? products 
       : products.filter(product => product.category === category);
 
+    // Apply category filter
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter(product => 
+        selectedCategories.includes(product.category)
+      );
+    }
+
     // Apply price filter
     filtered = filtered.filter(product => 
       product.price >= priceRange[0] && product.price <= priceRange[1]
     );
+
+    // Apply weight filter (assuming weight is in format like "500g", "1kg", etc.)
+    filtered = filtered.filter(product => {
+      if (!product.weight) return true; // Include products without weight info
+      
+      const weightStr = product.weight.toLowerCase();
+      let weightInGrams = 0;
+      
+      if (weightStr.includes('kg')) {
+        weightInGrams = parseFloat(weightStr.replace('kg', '')) * 1000;
+      } else if (weightStr.includes('g')) {
+        weightInGrams = parseFloat(weightStr.replace('g', ''));
+      }
+      
+      return weightInGrams >= weightRange[0] && weightInGrams <= weightRange[1];
+    });
 
     // Apply sorting
     switch (sortBy) {
@@ -41,9 +79,37 @@ export default function CategoryPage({ category, onProductClick, onViewClick }: 
     }
 
     return filtered;
-  }, [category, sortBy, priceRange]);
+  }, [category, sortBy, priceRange, weightRange, selectedCategories]);
 
-  const categoryTitle = category === 'all' ? 'All Products' : category;
+  // Pagination logic
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
+
+  const handleCategoryChange = (categoryName: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(categoryName)
+        ? prev.filter(c => c !== categoryName)
+        : [...prev, categoryName]
+    );
+    setCurrentPage(1); // Reset to first page when filter changes
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    // Scroll to top of page
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const clearAllFilters = () => {
+    setSelectedCategories([]);
+    setPriceRange([0, 100]);
+    setWeightRange([0, 5000]);
+    setCurrentPage(1);
+  };
+
+  const categoryTitle = category === 'all' ? 'All Products' : 
+    categoryMapping.find(item => item.category === category)?.name || category;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -62,6 +128,24 @@ export default function CategoryPage({ category, onProductClick, onViewClick }: 
             <div className="bg-white rounded-lg shadow-md p-6">
               <h3 className="text-lg font-semibold mb-4">Filters</h3>
               
+              {/* Categories */}
+              <div className="mb-6">
+                <h4 className="text-sm font-medium text-gray-700 mb-3">Categories</h4>
+                <div className="space-y-2">
+                  {categoryMapping.map((item) => (
+                    <label key={item.category} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={selectedCategories.includes(item.category)}
+                        onChange={() => handleCategoryChange(item.category)}
+                        className="mr-2"
+                      />
+                      <span className="text-sm">{item.name}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
               {/* Price Range */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -83,8 +167,37 @@ export default function CategoryPage({ category, onProductClick, onViewClick }: 
                 </div>
               </div>
 
-              {/* In Stock Filter */}
+              {/* Weight/Size Range */}
               <div className="mb-6">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Weight/Size Range
+                </label>
+                <div className="space-y-2">
+                  <input
+                    type="range"
+                    min="0"
+                    max="5000"
+                    value={weightRange[1]}
+                    onChange={(e) => setWeightRange([weightRange[0], parseInt(e.target.value)])}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-sm text-gray-600">
+                    <span>{weightRange[0]}g</span>
+                    <span>{weightRange[1] >= 5000 ? '5kg+' : `${weightRange[1]}g`}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Clear All Filters */}
+              <button
+                onClick={clearAllFilters}
+                className="w-full bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+              >
+                Clear All Filters
+              </button>
+
+              {/* In Stock Filter */}
+              <div className="mt-6">
                 <label className="flex items-center">
                   <input type="checkbox" className="mr-2" defaultChecked />
                   <span className="text-sm">In Stock Only</span>
@@ -142,7 +255,7 @@ export default function CategoryPage({ category, onProductClick, onViewClick }: 
                 ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
                 : 'grid-cols-1'
             }`}>
-              {filteredProducts.map((product) => (
+              {paginatedProducts.map((product) => (
                 <div key={product.id} className="bg-white rounded-lg border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 group">
                   <div className="relative overflow-hidden">
                     <img
@@ -193,6 +306,43 @@ export default function CategoryPage({ category, onProductClick, onViewClick }: 
                 </div>
               ))}
             </div>
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-8 flex justify-center">
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Previous
+                  </button>
+                  
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => handlePageChange(page)}
+                      className={`px-4 py-2 rounded-lg ${
+                        currentPage === page
+                          ? 'bg-emerald-600 text-white'
+                          : 'border border-gray-300 text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  
+                  <button
+                    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
 
             {filteredProducts.length === 0 && (
               <div className="text-center py-12">

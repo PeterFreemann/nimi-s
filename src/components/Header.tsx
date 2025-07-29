@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X, ChevronDown } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import logo from '../images/logo.jpg';
@@ -19,6 +19,8 @@ interface HeaderProps {
 export default function Header({ currentPage, onPageChange, onSearch, selectedCategory }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
+  const [isMobileCategoriesOpen, setIsMobileCategoriesOpen] = useState(false);
   const { itemCount, total } = useCart();
   const { user, logout } = useAuth();
 
@@ -33,15 +35,14 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
     'Fresh Food': farmproducehero,
     'Frozen proteins': frozenproteinshero,
     'Drinks': drinkshero,
-    'Whine': fruitwinehero,
+    'Wine': fruitwinehero,
     'Snacks': snackshero,
-    
   };
 
   // Function to get hero image for current page/category
   const getCurrentHeroImage = () => {
     if (currentPage === 'home') {
-      
+      return null; // No hero for home page
     }
     if (currentPage === 'category' && selectedCategory) {
       return heroImages[selectedCategory as keyof typeof heroImages];
@@ -49,13 +50,23 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
     return null;
   };
 
-  const navItems = [
+  // Main navigation items
+  const mainNavItems = [
     { name: 'Home', page: 'home' },
-    { name: 'Fresh Farm Produce', page: 'category', category: 'Fresh Food' },
-    { name: 'Frozen Proteins', page: 'category', category: 'Frozen proteins' },
-    { name: 'African Soft Drinks', page: 'category', category: 'Drinks' },
-    { name: 'Fruit Wine', page: 'category', category: 'Wine' },
-    { name: 'Snacks', page: 'category', category: 'Snacks' },
+    { name: 'Shop All', page: 'shop-all' },
+    { name: 'Categories', page: 'categories', hasDropdown: true },
+    { name: 'About Us', page: 'about' },
+    { name: 'Contact Us', page: 'contact' },
+    { name: 'How it Works', page: 'how-it-works' },
+  ];
+
+  // Category items for dropdown
+  const categoryItems = [
+    { name: 'Fresh Farm Produce', category: 'Fresh Food' },
+    { name: 'Frozen Proteins', category: 'Frozen proteins' },
+    { name: 'African Soft Drinks', category: 'Drinks' },
+    { name: 'Fruit Wine', category: 'Wine' },
+    { name: 'Snacks', category: 'Snacks' },
   ];
 
   const currentHeroImage = getCurrentHeroImage();
@@ -76,7 +87,6 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
                 </h1>
                 <p className='text-[10px] font-sans'>African & Caribbean Groceries</p>
                 </div>
-                
               </div>
             </div>
 
@@ -101,38 +111,6 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
 
             {/* User Actions */}
             <div className="flex items-center space-x-5">
-              {/* Auth Button */}
-              {/* <div className="hidden md:block">
-                {user ? (
-                  <div className="relative group">
-                    <button className="border-2 border-amber-500 font-sans text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300">
-                      Hi, {user.name}
-                    </button>
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                      <button
-                        onClick={() => onPageChange('account')}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        My Account
-                      </button>
-                      <button
-                        onClick={logout}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        Sign Out
-                      </button>
-                    </div>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => onPageChange('login')}
-                    className="border-2 border-amber-500 font-sans text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300"
-                  >
-                    Sign In
-                  </button>
-                )}
-              </div> */}
-
               {/* Cart Button */}
               <button
                 onClick={() => onPageChange('cart')}
@@ -178,40 +156,127 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
         </div>
 
         {/* Navigation */}
-        <nav className={`border-t border-white border-opacity-20 ${isMobileMenuOpen ? 'block' : 'hidden'} md:block`}>
+        <nav className={`border-t border-white border-opacity-20 ${isMobileMenuOpen ? 'block' : 'hidden'} md:block relative`}>
           <div className="max-w-6xl mx-auto px-5 py-2">
             <div className="flex flex-col md:flex-row md:items-center md:space-x-8 gap-2">
-              {navItems.map((item) => {
-                // Fixed active state logic
+              {mainNavItems.map((item) => {
                 let isActive = false;
                 
-                if (item.category) {
-                  // For category items, check if we're on category page and the selected category matches
-                  isActive = currentPage === 'category' && selectedCategory === item.category;
+                if (item.page === 'shop-all') {
+                  // Shop All is active only when viewing all products
+                  isActive = currentPage === 'category' && selectedCategory === 'all';
+                } else if (item.page === 'categories') {
+                  // Categories is active only when viewing specific categories (not 'all')
+                  isActive = currentPage === 'category' && selectedCategory !== 'all';
                 } else {
-                  // For non-category items (like Home)
+                  // Other pages use direct comparison
                   isActive = currentPage === item.page;
                 }
                 
                 return (
-                  <button
-                    key={item.name}
-                    onClick={() => {
-                      if (item.category) {
-                        onPageChange(`category-${item.category}`);
-                      } else {
-                        onPageChange(item.page);
-                      }
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className={`text-left py-2 px-4 rounded-full font-medium transition-all duration-300 ${
-                      isActive
-                        ? 'text-amber-400 bg-white bg-opacity-20' 
-                        : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-amber-300'
-                    }`}
-                  >
-                    {item.name}
-                  </button>
+                  <div key={item.name} className="relative">
+                    {item.hasDropdown ? (
+                      // Categories with dropdown
+                      <div className="relative">
+                        {/* Desktop Categories Button */}
+                        <button
+                          onMouseEnter={() => setIsCategoriesOpen(true)}
+                          onMouseLeave={() => setIsCategoriesOpen(false)}
+                          onClick={() => setIsCategoriesOpen(!isCategoriesOpen)}
+                          className={`hidden md:flex items-center space-x-1 py-2 px-4 rounded-full font-medium transition-all duration-300 ${
+                            isActive
+                              ? 'text-amber-400 bg-white bg-opacity-20' 
+                              : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-amber-300'
+                          }`}
+                        >
+                          <span>{item.name}</span>
+                          <ChevronDown size={16} className={`transition-transform duration-200 ${isCategoriesOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {/* Mobile Categories Button */}
+                        <button
+                          onClick={() => setIsMobileCategoriesOpen(!isMobileCategoriesOpen)}
+                          className={`md:hidden flex items-center justify-between w-full text-left py-2 px-4 rounded-full font-medium transition-all duration-300 ${
+                            isActive
+                              ? 'text-amber-400 bg-white bg-opacity-20' 
+                              : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-amber-300'
+                          }`}
+                        >
+                          <span>{item.name}</span>
+                          <ChevronDown size={16} className={`transition-transform duration-200 ${isMobileCategoriesOpen ? 'rotate-180' : ''}`} />
+                        </button>
+
+                        {/* Desktop Dropdown */}
+                        <div
+                          onMouseEnter={() => setIsCategoriesOpen(true)}
+                          onMouseLeave={() => setIsCategoriesOpen(false)}
+                          className={`hidden md:block absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-2 transition-all duration-200 ${
+                            isCategoriesOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                          }`}
+                        >
+                          {categoryItems.map((categoryItem) => (
+                            <button
+                              key={categoryItem.name}
+                              onClick={() => {
+                                onPageChange(`category-${categoryItem.category}`);
+                                setIsCategoriesOpen(false);
+                              }}
+                              className={`w-full text-left px-4 py-3 text-gray-700 hover:bg-amber-50 hover:text-amber-600 transition-colors duration-200 ${
+                                selectedCategory === categoryItem.category ? 'bg-amber-50 text-amber-600 border-r-2 border-amber-500' : ''
+                              }`}
+                            >
+                              {categoryItem.name}
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Mobile Dropdown */}
+                        <div className={`md:hidden overflow-hidden transition-all duration-300 ${
+                          isMobileCategoriesOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                        }`}>
+                          <div className="pl-4 mt-2 space-y-1">
+                            {categoryItems.map((categoryItem) => (
+                              <button
+                                key={categoryItem.name}
+                                onClick={() => {
+                                  onPageChange(`category-${categoryItem.category}`);
+                                  setIsMobileCategoriesOpen(false);
+                                  setIsMobileMenuOpen(false);
+                                }}
+                                className={`block w-full text-left py-2 px-4 rounded-full font-medium transition-all duration-300 ${
+                                  selectedCategory === categoryItem.category
+                                    ? 'text-amber-400 bg-white bg-opacity-20' 
+                                    : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-amber-300'
+                                }`}
+                              >
+                                {categoryItem.name}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      // Regular navigation items
+                      <button
+                        onClick={() => {
+                          if (item.page === 'shop-all') {
+                            // Navigate to category page with 'all' filter to show all products
+                            onPageChange('category-all');
+                          } else {
+                            onPageChange(item.page);
+                          }
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className={`text-left py-2 px-4 rounded-full font-medium transition-all duration-300 ${
+                          isActive
+                            ? 'text-amber-400 bg-white bg-opacity-20' 
+                            : 'text-white hover:bg-white hover:bg-opacity-10 hover:text-amber-300'
+                        }`}
+                      >
+                        {item.name}
+                      </button>
+                    )}
+                  </div>
                 );
               })}
               
@@ -267,7 +332,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
             <div className="text-center text-white">
               <h2 className="text-3xl md:text-5xl font-bold mb-2">
                 {currentPage === 'home' ? 'Welcome to Nimi Store' : 
-                 navItems.find(item => item.category === selectedCategory)?.name || 'Our Products'}
+                 categoryItems.find(item => item.category === selectedCategory)?.name || 'Our Products'}
               </h2>
               <p className="text-lg md:text-xl opacity-90">
                 {currentPage === 'home' ? 'Fresh, Quality Products Delivered to Your Door' : 
