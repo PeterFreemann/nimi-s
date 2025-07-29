@@ -102,7 +102,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
             {/* User Actions */}
             <div className="flex items-center space-x-5">
               {/* Auth Button */}
-              <div className="hidden md:block">
+              {/* <div className="hidden md:block">
                 {user ? (
                   <div className="relative group">
                     <button className="border-2 border-amber-500 font-sans text-amber-500 px-5 py-2 rounded-full font-semibold hover:bg-amber-500 hover:text-white transition-all duration-300">
@@ -131,7 +131,7 @@ export default function Header({ currentPage, onPageChange, onSearch, selectedCa
                     Sign In
                   </button>
                 )}
-              </div>
+              </div> */}
 
               {/* Cart Button */}
               <button
